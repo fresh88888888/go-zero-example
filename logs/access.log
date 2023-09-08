@@ -1,0 +1,2 @@
+{"@timestamp":"2023-09-07T12:45:32.381+08:00","caller":"log/main.go:19","content":"hello world{key value}","level":"info"}
+{"@timestamp":"2023-09-07T12:49:18.761+08:00","caller":"log/main.go:20","content":"Hello World","level":"info","path":"/user/info"}

@@ -1,0 +1,75 @@
+// 声明 proto 语法版本，固定值
+syntax = "proto3";
+
+// proto 包名
+package greet;
+
+// 生成 golang 代码后的包名
+option go_package = "rpc/greet";
+
+import "base.proto";
+
+enum Status{
+  UNSPECIFIED = 0;
+  SUCCESS = 1;
+  FAILED = 2;
+}
+
+// 定义结构体
+message SayHelloReq {}
+
+message SayHelloResp {}
+
+message SendMessageReq{
+  string message = 1;
+}
+
+message SendMessage{
+  // 使用枚举
+  Status status = 1;
+  // 数组
+  repeated string array = 2;
+  // map
+  map<string,int32> map = 3;
+  // 布尔类型
+  bool boolean = 4;
+  // 序列号保留
+  reserved 5;
+}
+
+message SendMessageResp{
+  base.Base base = 1;
+  SendMessage data = 2;
+}
+
+message GetMessageReq{
+  int32 id = 1;
+}
+message GetMessageResp{
+  string message = 1;
+}
+
+// 定义 Greet 服务
+service Greet {
+  // 定义客户端流式 rpc
+  rpc SendMessage(stream SendMessageReq) returns (SendMessageResp);
+  // 定义服务端流式 rpc
+  rpc GetMessage(GetMessageReq) returns (stream GetMessageResp);
+  // 定义双向流式 rpc
+  rpc PushMessage(stream SendMessageReq) returns (stream GetMessageResp);
+}
+
+// 定义 Greet 服务
+service Greet {
+  rpc SayHello(SayHelloReq) returns (SayHelloResp);
+}
+
+// 定义 Message 服务
+service Message {
+  // 定义客户端流式 rpc
+  rpc SendMessage(stream SendMessageReq) returns (SendMessageResp);
+  // 定义服务端流式 rpc
+  rpc GetMessage(GetMessageReq) returns (stream GetMessageResp);
+  // 定义双向流式 rpc
+  rpc PushMessage(stream SendMessageReq) returns (stream GetMessageResp);
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package check;
+option go_package="./check";
+
+message Request {
+  string ping = 1;
+}
+
+message Response {
+  string pong = 1;
+}
+
+service Check {
+  rpc Ping(Request) returns(Response);
+}

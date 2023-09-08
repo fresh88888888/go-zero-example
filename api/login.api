@@ -1,0 +1,22 @@
+syntax = "v1"
+
+type (
+	// define interface of login with request body
+	LoginReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+
+	// define interface of login with response body
+	loginResp {
+		Id       int64  `json:"id"`
+		Name     string `json:"name"`
+		Token    string `json:"token"`
+		ExpireAt string `json:"expireAt"`
+	}
+)
+
+service user {
+	@handler Login
+	post /user/login (LoginReq) returns(loginResp)
+}
